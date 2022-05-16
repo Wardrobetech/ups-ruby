@@ -69,7 +69,7 @@ module UPS
           product << description
           product << package_weight(opts[:weight], opts[:unit])
           product << package_dimensions(opts[:dimensions]) if opts[:dimensions]
-          product << package_delivery_confirmation(opts[:delivery_confirmation]) if ops[:delivery_confirmation]
+          product << package_delivery_confirmation(opts[:delivery_confirmation]) if opts[:delivery_confirmation]
         end
       end
 
