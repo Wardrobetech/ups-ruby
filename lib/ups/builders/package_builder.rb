@@ -54,6 +54,13 @@ module UPS
         end
       end
 
+      def add_package_delivery_confirmation(dcis_type)
+        package_service_options <<
+          Element.new('DeliveryConfirmation').tap do |delivery_confirmation|
+            delivery_confirmation << element_with_value('DCISType', dcis_type)
+          end
+      end
+
       def to_xml
         Element.new(name).tap do |product|
           product << reference_number if opts[:reference_number]
@@ -62,6 +69,16 @@ module UPS
           product << description
           product << package_weight(opts[:weight], opts[:unit])
           product << package_dimensions(opts[:dimensions]) if opts[:dimensions]
+        end
+      end
+
+      private
+
+      def package_service_options
+        @package_service_options ||= begin
+          Element.new('PackageServiceOptions').tap do |element|
+            package_root << element
+          end
         end
       end
     end
