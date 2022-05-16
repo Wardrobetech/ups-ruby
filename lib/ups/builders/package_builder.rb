@@ -54,7 +54,7 @@ module UPS
         end
       end
 
-      def add_package_delivery_confirmation(dcis_type)
+      def package_delivery_confirmation(dcis_type)
         package_service_options <<
           Element.new('DeliveryConfirmation').tap do |delivery_confirmation|
             delivery_confirmation << element_with_value('DCISType', dcis_type)
@@ -69,6 +69,7 @@ module UPS
           product << description
           product << package_weight(opts[:weight], opts[:unit])
           product << package_dimensions(opts[:dimensions]) if opts[:dimensions]
+          product << package_delivery_confirmation(opts[:delivery_confirmation]) if ops[:delivery_confirmation]
         end
       end
 
